@@ -28,6 +28,18 @@ int main()
 				std::cout<< "1 place is"<<place<<'\n';
 				canplace=false;
 			}
+			else if(array[i]==i&&filled+1==place)
+			{
+				place=place+1;
+				std::cout<<"5 place is "<<place<<'\n';
+				canplace=false;
+			}
+			else if(array[i]==place-(filled+1-i))
+			{
+				place=place+1;
+				std::cout<<"6 place is "<<place<<'\n';
+				canplace=false;
+			}
 		}
 		if(place==column.top())
 		{
@@ -47,25 +59,7 @@ int main()
 			std::cout<<"4 place is "<<place<<'\n';
 			canplace=false;
 		}
-		for(int i=1;i<filled;++i)
-		{
-			if(array[i]==i&&filled+1==place)
-			{
-				place=place+1;
-				std::cout<<"5 place is "<<place<<'\n';
-				canplace=false;
-			}
-		}
-		for(int i=filled;i==0;--i)
-		{
-			if(place==array[i]+(filled+1-i))
-			{
-				place=place+1;
-				std::cout<<"6 place is"<<place<<'\n';
-				canplace=false;
-			}
-		}
-		if(place>queens)
+		else if(place>queens)
 		{
 			int temp=column.top();
 			column.pop();
@@ -87,7 +81,7 @@ int main()
 			filled=filled+1;
 			array[filled]=place;
 			std::cout <<"Placed a queen at row "<<filled<<" and at column "<<place<<"."<<'\n';
-			for(int i=1;i<queens;++i)
+			for(int i=0;i<queens;++i)
 			{
 				std::cout<<array[i]<<"|";
 			}
