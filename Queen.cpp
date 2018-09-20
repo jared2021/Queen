@@ -40,6 +40,12 @@ int main()
 				std::cout<<"6 place is "<<place<<'\n';
 				canplace=false;
 			}
+			else if(array[i]==place+(filled+1-i))
+			{
+				place=place+1;
+				std::cout<<"7 place is "<<place<<'\n';
+				canplace=false;
+			}
 		}
 		if(place==column.top())
 		{
