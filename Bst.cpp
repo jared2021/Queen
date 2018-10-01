@@ -43,68 +43,79 @@ int main()
 	d.right=&i;
 
 	e.parent=&b;
-	e.right=nullptr;
-	e.left=nullptr;
+	e.left=&j;
+	e.right=&k;
 
 	f.parent=&c;
-	f.left=nullptr;
-	f.right=nullptr;
+	f.left=&l;
+	f.right=&m;
 
 	g.parent=&c;
-	g.left=&j;
-	g.right=&k;
+	g.left=&n;
+	g.right=&o;
 
 	h.parent=&d;
-	h.left=&l;
-	h.right=&m;
+	h.left=nullptr;
+	h.right=nullptr;
 
 	i.parent=&d;
 	i.left=nullptr;
 	i.right=nullptr;
 
-	j.parent=&g;
+	j.parent=&e;
 	j.left=nullptr;
 	j.right=nullptr;
 
-	k.parent=&g;
-	k.left=&n;
-	k.right=&o;
+	k.parent=&e;
+	k.left=nullptr;
+	k.right=nullptr;
 
-	l.parent=&h;
+	l.parent=&f;
 	l.left=nullptr;
 	l.right=nullptr;
 
-	m.parent=&h;
+	m.parent=&f;
 	m.left=nullptr;
 	m.right=nullptr;
 
-	n.parent=&k;
+	n.parent=&g;
 	n.left=nullptr;
 	n.right=nullptr;
 
-	o.parent=&k;
+	o.parent=&g;
 	o.left=nullptr;
 	o.right=nullptr;
 
 	int variable=floor(size/2);
 	a.key=array[variable];
-	b.key=array[variable-2];
-	c.key=array[variable+2];
-	d.key=array[variable-4];
-	e.key=array[variable-1];
-	f.key=array[variable+1];
-	g.key=array[variable+4];
-	h.key=array[variable-6];
-	i.key=array[variable-3];
-	j.key=array[variable+3];
-	k.key=array[variable+6];
-	l.key=array[variable-7];
-	m.key=array[variable-5];
-	n.key=array[variable+5];
-	o.key=array[variable+7];
+	variable=floor(variable/2);
+	b.key=array[variable];
+	d.key=array[variable-2];
+	e.key=array[variable+2];
+	h.key=array[variable-3];
+	i.key=array[variable-1];
+	j.key=array[variable+1];
+	k.key=array[variable+3];
 
-	std::cout<<a.key<<"|"<<b.key<<"|"<<c.key<<"|"<<d.key<<"|"<<e.key<<"|"<<f.key<<"|"<<g.key<<"|"<<h.key<<"|"<<i.key<<"|"<<j.key<<"|"<<k.key<<"|"<<l.key<<"|"<<m.key<<"|"<<n.key<<"|"<<o.key<<"|";
+	int array2 [7];
+	array2[0]=71;
+	array2[1]=76;
+	array2[2]=79;
+	array2[3]=87;
+	array2[4]=92;
+	array2[5]=95;
+	array2[6]=99;
+	size=7;
+	variable=floor(size/2);
+	c.key=array2[variable];
+	f.key=array2[variable-2];
+	g.key=array2[variable+2];
+	l.key=array2[variable-3];
+	m.key=array2[variable-1];
+	n.key=array2[variable+1];
+	o.key=array2[variable+3];
 
+	//std::cout<<a.key<<"|"<<b.key<<"|"<<c.key<<"|"<<d.key<<"|"<<e.key<<"|"<<f.key<<"|"<<g.key<<"|"<<h.key<<"|"<<i.key<<"|"<<j.key<<"|"<<k.key<<"|"<<l.key<<"|"<<m.key<<"|"<<n.key<<"|"<<o.key<<"|"<<'\n';
 	std::cout<<"Which element would you like to find (1-15)";
 	int kth;
 	std::cin>>kth;
@@ -113,52 +124,59 @@ int main()
 	{
 		temp=temp->left;	
 	}
-	if(kth==1)
-	{
-		std::cout<<"The "<<kth<<" element is "<<temp->key;
-	}
-	else if(kth>1&&kth<9)
-	{
+	//if(kth==1)
+	//{
+		//std::cout<<"The "<<kth<<" element is "<<temp->key;
+	//}
+	//else
+	//{
 		int count=1;
-		while(count!=kth&&count!=8)
-		{
-			temp=temp->parent;
-			count=count+1;
-			if(count!=kth)
-			{
-				temp=temp->right;
-				count=count+1;
-				if(count!=kth)
-				{
-					temp=temp->parent;
-				}
-			}
-		}
-	}
-	else if(kth>8&&kth<15)
-	{
-		temp=&a;
-		int count=8;
 		while(count!=kth)
 		{
-			temp=temp->right;
-			temp=temp->left;
-			count=count+1;
-			if(count!=kth)
+			if(count==3&&count!=kth||count==11&&count!=kth)
 			{
 				temp=temp->parent;
 				count=count+1;
+				if(count!=kth)
+				{
+					temp=temp->right;
+					temp=temp->left;
+					count=count+1;
+				}
+			}
+			else if(count==7&&count!=kth)
+			{
+				while(temp->parent!=nullptr)
+				{
+					temp=temp->parent;
+				}
+				count=count+1;
+			}
+			else if(count==8&&count!=kth)
+			{
+				temp=temp->right;
+				while(temp->left!=nullptr)
+				{
+					temp=temp->left;
+				}
+				count=count+1;
+			}
+			else
+			{
+				temp=temp->parent;
+				count=count+1;
+				if(count!=kth)
+				{
+					temp=temp->right;
+					count=count+1;
+					if(count!=kth)
+					{
+						temp=temp->parent;
+					}
+				}
 			}
 		}
-	}
-	else if(kth==15)
-	{
-		temp=&a;
-		while(temp->right!=nullptr)
-		{
-			temp=temp->right;
-		}
-		std::cout<<temp->key;
-	}
+	//}
+	//std::cout<<temp->key;
 	std::cout<<"The "<<kth<<" element is "<<temp->key;
 }
